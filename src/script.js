@@ -61,7 +61,7 @@ function displayForecast(response) {
                     <span id="week-date">${formatDay(forecastDay.dt)}</span
                     > <span id="week-temperature">${Math.round(
                       forecastDay.temp.day
-                    )} °C | °F</span
+                    )} °C</span
                     ><img
                       src="http://openweathermap.org/img/wn/${
                         forecastDay.weather[0].icon
@@ -89,8 +89,6 @@ function displayTemperature(response) {
   windElement = document.querySelector("#wind");
   dateElement = document.querySelector("#date");
   iconElement = document.querySelector("#icon");
-
-  celsiusTemperature = response.data.main.temp;
 
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   cityElement.innerHTML = response.data.name;
@@ -120,32 +118,7 @@ function handleSubmit(event) {
   search(cityImputElement.value);
 }
 
-function displayFahrenheitTemperature(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
-}
-
-function displayCelsiusTemperature(event) {
-  event.preventDefault();
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-  let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = Math.round(celsiusTemperature);
-}
-
-let celsiusTemperature = null;
-
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
-
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
-
-let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 search("Kyiv");
